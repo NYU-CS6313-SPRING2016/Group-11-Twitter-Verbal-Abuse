@@ -1,0 +1,35 @@
+{
+  "name": "tweetabusevis",
+  "version": "1.0.0",
+  "description": "Visualization project for Infovis course",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "monitor": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "~4.9.7",
+    "express-handlebars": "~1.1.0",
+    "mongodb": "^2.1.15",
+    "mongoose": "^4.2.6",
+    "node-jsx": "~0.12.4",
+    "react": "~0.13.3",
+    "socket.io": "^1.1.0",
+    "twitter": "^1.2.0",
+    "elasticsearch": "11.0.0",
+    "body-parser": "^1.15.0",
+    "xml2json": "^0.9.0",
+    "fs": "^0.0.2",
+    "natural": "^0.4.0",
+    "request": "2.72.0"
+  },
+  "devDependencies": {
+    "browserify": "~6.0.3",
+    "nodemon": "^1.2.1",
+    "reactify": "~0.14.0"
+  },
+  "engines": {
+    "node": ">=0.12.7"
+  }
+}

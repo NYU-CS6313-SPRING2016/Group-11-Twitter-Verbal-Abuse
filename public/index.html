@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+        <style>
+            /* tell the SVG path to be a thin blue line without any area fill */
+            .path1 {
+                stroke: steelblue;
+                stroke-width: 7;
+                fill: none;
+            }
+            .path2 {
+                stroke: red;
+                stroke-width: 3;
+                fill: none;
+            }
+            .path3 {
+                stroke: green;
+                stroke-width: 5;
+                fill: none;
+            }
+
+            .tick{
+                font-size: 12;
+            }
+            .tick line{
+                stroke: #ccc
+            }
+  #toolTip{
+    position: absolute;
+    top:0;
+    left: 0;
+    background-color: rgba(255,255,255,0.8);
+    padding: 5px;
+    border: solid 1px #ccc;
+    visibility: hidden;
+    transition: all 0.2s
+  }
+
+        </style>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ 
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!--div id="graph2" class="aGraph" style="width:800px; height:640px;"></div>
+<div id="graph22" class="aGraph"></div-->
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active" ><a class="atab" href="#a_tab" data-toggle="tab">A</a></li>
+            <li><a class="btab" href="#b_tab" data-toggle="tab">B</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="a_tab">
+                <h1>A</h1>
+                <acontent style="width:800px; height:640px;"></acontent>
+            </div>
+            <div class="tab-pane" id="b_tab">
+                <h1>B</h1>
+                <bcontent></bcontent>
+            </div>
+        </div>
+    </div>
+
+<div id="toolTip">Tooltip</div>
+
+</body>
+    
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="vis.js"></script>
+<script src="country.js"></script>
+</html>
