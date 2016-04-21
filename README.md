@@ -22,5 +22,5 @@ To run the node server:
 	$ node server.js
 
 ## View Project
-[Real Time Twitter Abuse Visualization](twitterabusevis.herokuapp.com))twitterabusevis.herokuapp.com)
+[Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
