@@ -15,12 +15,12 @@ To build download node.js https://nodejs.org/en/download/
 
 Begin by installing the required dependencies:
 
-	$ npm installing
+	$ npm install
 
 To run the node server:
 
 	$ node server.js
 
 ## View Project
-[a Heroku link](twitterabusevis.herokuapp.com))twitterabusevis.herokuapp.com)
+[Absolute Heroku link](twitterabusevis.herokuapp.com))twitterabusevis.herokuapp.com)
 
