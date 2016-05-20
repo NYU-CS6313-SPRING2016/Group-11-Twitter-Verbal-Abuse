@@ -332,14 +332,14 @@ function makeMultiTable2(input) {
     //var dataArrTopTags = [];
 
     function load24HoursData() {
-        var url = 'http://localhost:8080/stored/'+24;
-        //var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
+        //var url = 'http://localhost:8080/stored/'+24;
+        var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
         $.get( url, function( data ) {
         });
     }
     function load24HoursData1() {
-        var url = 'http://localhost:8080/stored/'+24;
-        //var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
+        //var url = 'http://localhost:8080/stored/'+24;
+        var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
         $.get( url, function( data ) {
             //console.log(data);
             //alert(data['data'].length);
@@ -369,13 +369,13 @@ function makeMultiTable2(input) {
 
     $(document).ready(function(){
 
-            var socket = io.connect('http://localhost:8080');
+            //var socket = io.connect('http://localhost:8080');
             // $loading = $(".loadingincenter");
             // $(document).on({
             //     ajaxStart: function() { $loading.addClass("loading");    },
             //     ajaxStop: function() { $loading.removeClass("loading"); }    
             // });
-            //var socket = io.connect('https://twitterabusevis.herokuapp.com');
+            var socket = io.connect('https://twitterabusevis.herokuapp.com');
             load24HoursData();//load as fast
             socket.on("live", function(data) {  
                     render(data);     
