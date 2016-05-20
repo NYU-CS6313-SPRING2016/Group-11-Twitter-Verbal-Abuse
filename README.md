@@ -10,7 +10,7 @@
 This repository contains the Project files for the twitter
 Visualization project.
 
-**Video**: http://link-to-video.com
+**Video**: https://vimeo.com/167441622
 
 **Demo**: [Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
