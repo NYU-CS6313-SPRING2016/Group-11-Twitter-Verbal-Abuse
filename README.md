@@ -1,26 +1,46 @@
-# Group-11
+#A Real Time Twitter Abuse Visualization
 
-A Real Time Twitter Abuse Visualization
 ==========================================
 
+![alt text](https://raw.githubusercontent.com/CristianFelix/infoviz/master/Screen.png "Screenshot")
+
+**Authors**: Sachin Verma ([github-user-name](https://github.com/Sachinve)) Rahul Ramesh ([github-user-name](https://github.com/rahulkalpsts107)), Harshit Pareek ([github-user-name](https://github.com/hars1014))
+
+##Description
 This repository contains the Project files for the twitter
 Visualization project.
 
-All code in this repository is subject to the terms in the
-LICENSE document.
+**Video**: http://link-to-video.com
 
-## Build and Run Instructions:
+**Demo**: [Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
-To build download node.js https://nodejs.org/en/download/
+**Document**: [Write up]https://docs.google.com/a/nyu.edu/document/d/1-WKq0ZFl1h-N2R6Bk-kjpfILZj1k-0HSXsiSBkoMAUw/edit?usp=sharing
 
-Begin by installing the required dependencies:
+##Install instructions (if needed)
+
+Checkout the code
+
+Begin by installing the required dependencies at Project root:
 
 	$ npm install
 
+
+###Requirements 
+The system has the following dependences:
+
+1. **MongoDB**: ^2.1.15 
+2. **Nodejs 5+**
+
+The system has the following requirements:
+
+1. **Processor**:  Above Pentium 4
+1. **Main Memory **: Above 150mb
+
+###Runing
 To run the node server:
 
 	$ node server.js
+Access `http://localhost:8080`
 
-## View Project
 [Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
