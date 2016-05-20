@@ -4,7 +4,7 @@
 
 ![alt text](https://raw.githubusercontent.com/CristianFelix/infoviz/master/Screen.png "Screenshot")
 
-**Authors**: Sachin Verma ([github-user-name](https://github.com/Sachinve)) Rahul Ramesh ([github-user-name](https://github.com/rahulkalpsts107)), Harshit Pareek ([github-user-name](https://github.com/hars1014))
+**Authors**: Sachin Verma ([Sachinve](https://github.com/Sachinve)) Rahul Ramesh ([rahulkalpsts107](https://github.com/rahulkalpsts107)), Harshit Pareek ([hars1014](https://github.com/hars1014))
 
 ##Description
 This repository contains the Project files for the twitter
@@ -14,7 +14,7 @@ Visualization project.
 
 **Demo**: [Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
-**Document**: [Write up]https://docs.google.com/a/nyu.edu/document/d/1-WKq0ZFl1h-N2R6Bk-kjpfILZj1k-0HSXsiSBkoMAUw/edit?usp=sharing
+**Document**: [Write up](https://docs.google.com/a/nyu.edu/document/d/1-WKq0ZFl1h-N2R6Bk-kjpfILZj1k-0HSXsiSBkoMAUw/edit?usp=sharing)
 
 ##Install instructions (if needed)
 
@@ -29,18 +29,16 @@ Begin by installing the required dependencies at Project root:
 The system has the following dependences:
 
 1. **MongoDB**: ^2.1.15 
-2. **Nodejs 5+**
+2. **Node.js**: +5
 
 The system has the following requirements:
 
 1. **Processor**:  Above Pentium 4
-1. **Main Memory **: Above 150mb
+1. **Main Memory**: Above 150mb
 
-###Runing
+###Running
 To run the node server:
 
 	$ node server.js
 Access `http://localhost:8080`
-
-[Real Time Twitter Abuse Visualization](https://twitterabusevis.herokuapp.com)
 
