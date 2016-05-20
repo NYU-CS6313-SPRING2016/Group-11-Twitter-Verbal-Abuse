@@ -11,6 +11,7 @@ module.exports.initClassifier = function(){
 	classifier = new natural.BayesClassifier();
 	line.forEach(function(line){
 		var subString = line.split(",");
+		//console.log(subString[0] + '->'+subString[1]+'\n');
 		classifier.addDocument(subString[0],subString[1]);
 		classifier.train();
 	});

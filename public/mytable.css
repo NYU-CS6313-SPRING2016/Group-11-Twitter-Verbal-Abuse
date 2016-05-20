@@ -1,0 +1,66 @@
+            #tab2
+            {
+                table-layout: fixed;
+                width: 100%;
+                word-wrap:break-word;
+            }
+            #tab1
+            {
+                table-layout: fixed;
+                width: 100%;
+                word-wrap:break-word;
+            }
+            th, td {
+            font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+            font-size:1em;
+            padding-left:15px;
+            padding-right:7px;
+            padding-top:4px;
+            padding-bottom:4px;
+            vertical-align:middle;
+            align:center;
+            text-align:center;
+            /*max-width = 10px;*/
+            }
+            th {
+            color:white;
+            //background-color:steelblue;
+            background-color:black;
+            text-align:center;
+            align:center;
+            }
+            td {
+            //border:1px solid steelblue;
+            border:1px solid black;
+            }
+            td#rowkey {
+            text-align:left;
+            }
+            tr:hover {
+            color:#000000;
+            background-color:#E0E0E0;
+            }
+            tr[chosen=true] {
+            background-color:#B5CDE1;
+            }
+
+            ul#listkey1{
+            color:white;
+            //background-color:steelblue;
+            background-color:black;
+
+            }
+
+            li#listkey2{
+            //border:1px solid steelblue;
+            border:1px solid black;
+            font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+            font-size:1em;
+            padding-left:7px;
+            padding-right:7px;
+            padding-top:4px;
+            padding-bottom:4px;
+            vertical-align:middle;
+            text-align:center;
+
+            }

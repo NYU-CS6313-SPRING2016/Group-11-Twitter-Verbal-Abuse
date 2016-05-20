@@ -1,82 +1,483 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+<meta charset="UTF-8">
+<title>Real Time Twitter Abuse Visualization</title>
+<!--meta name="viewport" content="width=device-width, initial-scale=1"-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-        <style>
-            /* tell the SVG path to be a thin blue line without any area fill */
-            .path1 {
-                stroke: steelblue;
-                stroke-width: 7;
-                fill: none;
-            }
-            .path2 {
-                stroke: red;
-                stroke-width: 3;
-                fill: none;
-            }
-            .path3 {
-                stroke: green;
-                stroke-width: 5;
-                fill: none;
-            }
+<link rel="stylesheet" type="text/css" href="mybootstrap.css">
+<link rel="stylesheet" type="text/css" href="mytable.css">
 
-            .tick{
-                font-size: 12;
-            }
-            .tick line{
-                stroke: #ccc
-            }
+<style>
   #toolTip{
     position: absolute;
     top:0;
     left: 0;
     background-color: rgba(255,255,255,0.8);
     padding: 5px;
-    border: solid 1px #ccc;
+    border: solid 2px #ccc;
     visibility: hidden;
-    transition: all 0.2s
+    transition: all 0.3s
   }
+/*
+.grid .tick {
+    stroke: red;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+*/
 
-        </style>
+</style>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
- 
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 
 </head>
-<body>
 
-<!--div id="graph2" class="aGraph" style="width:800px; height:640px;"></div>
-<div id="graph22" class="aGraph"></div-->
-    <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active" ><a class="atab" href="#a_tab" data-toggle="tab">A</a></li>
-            <li><a class="btab" href="#b_tab" data-toggle="tab">B</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="a_tab">
-                <h1>A</h1>
-                <acontent style="width:800px; height:640px;"></acontent>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 ntitle">
+                    <p>Real Time Twitter Abuse Visualization</p>
             </div>
-            <div class="tab-pane" id="b_tab">
-                <h1>B</h1>
-                <bcontent></bcontent>
+        </div>
+        <div class="row body2">
+            <div class="col-xs-3 left-side">
+                <div class="row ">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="tophashtag" id="words">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="topuser" id="users">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 incenter loadingincenter" style='width=100%'>
+                <div class="row" style='width=100%'>
+                    <div class="col-xs-12">
+                        <!--div class="linechart-container"-->
+                            <div class="row" style="width=100%">
+                                <div class="col-xs-6">
+                                    <div class="row" style="width=100%">
+                                        <div id="toolTip">Tooltip</div>
+                                        <div class="linechart" id="bar1"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="row" style="width=100%">
+                                        <div id="toolTip">Tooltip</div>
+                                        <div class="linechart" id="bar2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-xs-6">
+                                    <div class="row" style="width=100%">
+                                        <div id="toolTip">Tooltip</div>
+                                        <div class="linechart" id="bar3"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="row" style="width=100%">
+                                        <div id="toolTip">Tooltip</div>
+                                        <div class="linechart" id="bar4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--/div-->
+                    </div>
+                    <!--div class="row" style='width=100%'>
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="ntitle3">
+                                    <p>Historical Tweets</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div-->
+                    <div class="col-xs-8">
+                        <div class="row" id="tweets-content2">
+                            <div class="barchart22" id="bar5">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="row" id="tweets-content3">
+                            <div class="barchart22" id="bar6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 right-side">
+                <div class="row" style='width=100%'>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="ntitle2">
+                                <p>Live Tweets</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style='width=100%' id="tweets-content">
+                    <table>
+                        <thead >
+                            <!--tr class="tweetrow">
+                                <td>Live Tweets</td>
+                            </tr-->
+                        </thead>
+                        <tbody class="tweetbody">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
-
-<div id="toolTip">Tooltip</div>
-
 </body>
-    
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="legend.js"></script>
+<script>
+    var dataArr = [];
+
+    function add_data(json_data){
+        //alert(JSON.stringify(json_data));
+        /*
+           json_data['categories'][0]['val'] = Math.floor((Math.random() * 50) + 1);
+           json_data['categories'][1]['val'] = Math.floor((Math.random() * 50) + 1);
+           json_data['categories'][2]['val'] = Math.floor((Math.random() * 50) + 1);
+           json_data['categories'][3]['val'] = Math.floor((Math.random() * 50) + 1);
+         */
+        dataArr.push(json_data);
+    }
+
+    function get_data(){
+        return dataArr.shift();
+    }
+
+
+    String.prototype.parseURL=function() {
+        return this.replace("/[A-Za-z]+://[A-Za-z0-9-_]+.[A-Za-z0-9-_:%&~?/.=]+/g", function(url) {
+                return url.link(url);
+                });
+    };
+
+    String.prototype.parseUsername=function() {
+        return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+                var username = u.replace("@","")
+                return u.link("http://twitter.com/"+username);
+                });
+    };
+
+    String.prototype.parseHashtag = function() {
+        return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
+                var tag = t.replace("#","%23")
+                return t.link("http://search.twitter.com/search?q="+tag);
+                });
+    };
+
+    function parseDate(str) {
+        var v=str.split(' ');
+        return new Date(Date.parse(v[1]+" "+v[2]+", "+v[5]+" "+v[3]+" UTC"));
+    }
+
+    function render1(data){
+        var tweet = data.content;
+        var created = parseDate(data.createdAt);
+        var createdDate = created.getDate()+'-'+(created.getMonth()+1)+'-'+created.getFullYear()+' at '+created.getHours()+':'+created.getMinutes();
+        tweet = tweet.parseURL().parseUsername().parseHashtag();
+        //tweet += '<div class="tweeter-info"><div class="uppercase bold"></div></div>'
+        $("#tweets-content").html('<p>'+tweet+'</p>'+createdDate);
+    }
+
+    function render(data) {
+        var tweet = data.content;
+        var created = parseDate(data.createdAt);
+        var createdDate = created.getDate()+'-'+(created.getMonth()+1)+'-'+created.getFullYear()+' at '+created.getHours()+':'+created.getMinutes();
+        tweet = tweet.parseURL().parseUsername().parseHashtag();
+        var row = $("<tr>").append($("<td>").html('<p>'+tweet+'</p>'+createdDate));
+        //var row = $(".tweetrow").addClass("tweetrow").append($("<td>").html('<p>'+tweet+'</p>'+createdDate));
+        $(".tweetbody" ).append(row);
+    }
+
+function makeMultiTable(input) {
+    var yrCols = ["TopTags"];
+    // Create the table
+    d3.select("#bar6").selectAll("thead").remove()
+    d3.select("#bar6").selectAll("tbody").remove()
+    //d3.selectAll("thead").remove()
+    //d3.selectAll("tbody").remove()
+    var table = d3.select("#bar6").append("table");//.attr("overflow-y", "scroll").attr("max-height","200px").attr("table-layout", "fixed");
+    var thead = table.append("thead");
+    var tbody = table.append("tbody").attr("class", "tbody1");
+    // Append the year headers
+    thead.append("tr")
+    tbody.append("tr")
+        .selectAll("th")
+        .data(yrCols)
+        .enter()
+        .append("th")
+        .text(function(d) { return d; })
+        .attr("colspan", function(d) { return d; })
+  
+    // Bind each statistic to a line of the table
+    var rows = tbody.selectAll("tr")
+        //.data(input)
+        .data(input.toptags)
+        .enter()
+        .append("tr")
+        .attr("rowstat", function(d) { return d; })
+        .attr("chosen", false)
+        .append("td")
+        .text(function(d,i) { return d; })
+        
+    // Add statistic names to each row
+    /*
+    var stat_cells = rows.append("td")
+        .text(function(d) { return d.tweets; })
+        .attr("class", "rowkey")
+
+    */
+        // Fill in the cells. The data -> d.values pulls the value arrays from
+        // the data assigned above to each row.
+        // The unshift crap bumps the data cells over one - otherwise, the first
+        // result value falls under the statistic labels.
+
+/*      
+    var res_cells = rows.selectAll("td")
+        .data(input)
+        .enter()
+        .append("td")
+        .text(function(d,i) { return d; })
+*/
+}
+
+function makeMultiTable2(input) {
+    /*
+    var yrCols = d3.nest()
+        .key(function(d) { return d.name; })
+        .rollup(function(d) { return d; })
+        .entries(input)
+    */
+    var yrCols = ["Tweets"];
+    // Create the table
+    d3.select("#bar5").selectAll("thead").remove()
+    d3.select("#bar5").selectAll("tbody").remove()
+    //d3.selectAll("thead").remove()
+    //d3.selectAll("tbody").remove()
+    var table = d3.select("#bar5").append("table");//.attr("overflow-y", "scroll").attr("max-height","200px").attr("table-layout", "fixed");
+    var thead = table.append("thead");
+    var tbody = table.append("tbody").attr("class", "tbody1");
+    // Append the year headers
+    thead.append("tr")
+    tbody.append("tr")
+        .selectAll("th")
+        .data(yrCols)
+        .enter()
+        .append("th")
+        .text(function(d) { return d; })
+        .attr("colspan", function(d) { return d; })
+  
+    // Bind each statistic to a line of the table
+    var rows = tbody.selectAll("tr")
+        //.data(input)
+        .data(input.tweets)
+        .enter()
+        .append("tr")
+        .attr("rowstat", function(d) { return d; })
+        .attr("chosen", false)
+        .append("td")
+        .text(function(d,i) { return d; })
+        
+    // Add statistic names to each row
+    /*
+    var stat_cells = rows.append("td")
+        .text(function(d) { return d.tweets; })
+        .attr("class", "rowkey")
+
+    */
+        // Fill in the cells. The data -> d.values pulls the value arrays from
+        // the data assigned above to each row.
+        // The unshift crap bumps the data cells over one - otherwise, the first
+        // result value falls under the statistic labels.
+
+/*      
+    var res_cells = rows.selectAll("td")
+        .data(input)
+        .enter()
+        .append("td")
+        .text(function(d,i) { return d; })
+*/
+}
+
+
+
+    var dataArrSexual = [];
+    var dataArrGeneral = [];
+    var dataArrWomen = [];
+    var dataArrRacial = [];
+    //var dataArrTopTags = [];
+
+    function load24HoursData() {
+        var url = 'http://localhost:8080/stored/'+24;
+        //var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
+        $.get( url, function( data ) {
+        });
+    }
+    function load24HoursData1() {
+        var url = 'http://localhost:8080/stored/'+24;
+        //var url = 'https://twitterabusevis.herokuapp.com/stored/'+24;
+        $.get( url, function( data ) {
+            //console.log(data);
+            //alert(data['data'].length);
+            for(i = 0; i < data['data'].length ; i++){
+                var data1 = data['data'][i]['data'][0];
+                var data2 = data['data'][i]['data'][1];
+                var data3 = data['data'][i]['data'][2];
+                var data4 = data['data'][i]['data'][3];
+
+                data1['toptags'] = data['data'][i]['toptags'];
+                data2['toptags'] = data['data'][i]['toptags'];
+                data3['toptags'] = data['data'][i]['toptags'];
+                data4['toptags'] = data['data'][i]['toptags'];
+                //var data5 = data['data'][i]['toptags'];
+                dataArrSexual.push(data1);
+                dataArrGeneral.push(data2);
+                dataArrWomen.push(data3);
+                dataArrRacial.push(data4);
+                //dataArrTopTags.push(data5);
+            }
+            //alert(JSON.stringify(dataArrTopTags));
+            plot_barcharts();
+            //makeMultiTable(dataArrSexual[5]);
+            //alert(JSON.stringify(data['data'][1]['data']));
+        });
+    }
+
+    $(document).ready(function(){
+
+            var socket = io.connect('http://localhost:8080');
+            // $loading = $(".loadingincenter");
+            // $(document).on({
+            //     ajaxStart: function() { $loading.addClass("loading");    },
+            //     ajaxStop: function() { $loading.removeClass("loading"); }    
+            // });
+            //var socket = io.connect('https://twitterabusevis.herokuapp.com');
+            load24HoursData();//load as fast
+            socket.on("live", function(data) {  
+                    render(data);     
+                    });
+
+            socket.on("conncounter", function(data) {  
+                    console.log('server num '+data);    
+                    });
+
+            socket.on("categories", function(data) {  
+                    //alert(JSON.stringify(data));
+                    if (typeof data != 'undefined')
+                    add_data(data);                  
+                    });
+
+            socket.on("topkwords", function(data) {  
+                    var wordsArray = data["topkwords"];
+                    $("#words").empty();//clear it
+                    var idx=0;
+                    //var out = "<table><tr><th width=50% id=" + "\"rowkey\"" + "><strong>Hashtag</strong></th><th width=50% ><strong>Popularity</strong></th></tr>";
+                    var out = "<table id=" + "\"tab1\"" + "><tr><th width=50%><strong>Hashtag</strong></th><th width=50% ><strong>Popularity</strong></th></tr>";
+                    for(;idx<wordsArray.length;idx++){
+                        var word = wordsArray[idx].word.length >14 ? wordsArray[idx].word.slice(0,14):wordsArray[idx].word;
+                    out+= '<tr><td id=' + '\"rowkey\"' + '>'+word+'</td><td>'+wordsArray[idx].followers_count+'</td></tr>';
+                    }
+                    out+="</table>";
+                    $("#words").html(out);
+                    });
+
+            socket.on("topkusers", function(data) {
+                    $("#users").empty();//clear it
+                    var usersArray = data["topkusers"];
+                    var idx=0;
+                    //var out = "<table><tr><th id=" + "\"rowkey\"" + "><strong>Top Users</strong></th></tr>";
+                    var out = "<table id="+ "\"tab2\"" + "><tr><th width=50%><strong>Top 10 Targeted Users</strong></th><th width=30% ><strong>Shift</strong></th></tr>";
+                    //var out = "<ul id=" + "\"listkey1\"" + ">";
+                    for(;idx<usersArray.length;idx++){
+                    //out+= '<li id=' + '\"listkey2\"'+ '>'+usersArray[idx]+'</li>'
+                        //var userName = usersArray[idx].name.length >14 ? usersArray[idx].name.slice(0,14):usersArray[idx].name;
+                        var userName = usersArray[idx].name.parseUsername();
+                        out+= '<tr><td id=' + '\"rowkey\"' + '>'+userName+'</td>';
+                        var shift = usersArray[idx].currentRankShift;
+                        if(shift > 0)
+                            out+= '<td id=' + '\"rowkey\"' + '>'+" &#x21E7; "+ "<span style='color:#489158'>"+shift+'</span></td>';
+                        else if(shift <0)
+                            out+= '<td id=' + '\"rowkey\"' + '>'+" &#x21E9; "+ "<span style='color:#FF062C'>"+Math.abs(shift)+'</span></td>';
+                        else
+                            out+= '<td id=' + '\"rowkey\"' + '>'+"  "+shift+'</td>';
+                        out+='</tr>';
+                    }
+                    out+="</ul>";
+                    $('#users').html(out);
+                    });
+
+            socket.on("load24", function(data) {
+        		    //console.log(data);
+        		    //alert(data['data'].length);
+        		    for(i = 0; i < data['data'].length ; i++){
+        			var data1 = data['data'][i]['data'][0];
+        			var data2 = data['data'][i]['data'][1];
+        			var data3 = data['data'][i]['data'][2];
+        			var data4 = data['data'][i]['data'][3];
+
+        			data1['toptags'] = data['data'][i]['toptags'];
+        			data2['toptags'] = data['data'][i]['toptags'];
+        			data3['toptags'] = data['data'][i]['toptags'];
+        			data4['toptags'] = data['data'][i]['toptags'];
+        			//var data5 = data['data'][i]['toptags'];
+        			dataArrSexual.push(data1);
+        			dataArrGeneral.push(data2);
+        			dataArrWomen.push(data3);
+        			dataArrRacial.push(data4);
+        			//dataArrTopTags.push(data5);
+		    }
+		    //alert(JSON.stringify(dataArrTopTags));
+		    plot_barcharts();
+		    //makeMultiTable(dataArrSexual[5]);
+		    //alert(JSON.stringify(data['data'][1]['data']));
+	    });
+
+    });
+
+    $.ajaxSetup ({
+            // Disable caching of AJAX responses
+            // Used when debugging
+    cache: true
+    });
+
+    $.getScript("vis.js");
+    $(".atab").click(function() {
+            $.getScript("vis.js");
+            })
+</script>
+        <script>
+            $(".btab").click(function() {
+                //$.getScript("country2.js");
+                $.getScript("barchart.js");
+            })
+        </script>
+<script src="barchart.js"></script>
 <script src="vis.js"></script>
-<script src="country.js"></script>
+
+
+
 </html>

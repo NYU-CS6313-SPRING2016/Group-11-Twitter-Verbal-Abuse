@@ -8,7 +8,6 @@ function _secondStage(tweet){
 	//Filter all happy tweets out
 	WatsonClient.getEmotions(tweet.content,function(data){
 		var isEligible =0;
-		//console.log(data);
         if(data !== undefined)
 	    {
 	    	if((data.anger+data.disgust) > (data.joy+data.sadness))
@@ -20,11 +19,22 @@ function _secondStage(tweet){
 	    		if((data.anger + data.disgust) > data.joy+data.sadness)
 	    			isEligible=1;
 	    	}
-	    	//console.log(data);
 	    	 if(isEligible)
 	    	 {
+	    	 	tweet.anger = data.anger;
+	    	 	tweet.disgust = data.disgust;
+	    	 	tweet.sadness = data.sadness;
+	    	 	tweet.joy = data.joy;
 	    	 	LiveStreamer.append(tweet);
 	    	 }
+	    }
+	    else //remove this case , its just for test!!
+	    {
+	    	tweet.anger = 0;
+    	 	tweet.disgust = 0;
+    	 	tweet.sadness = 0;
+    	 	tweet.joy = 0;
+    	 	LiveStreamer.append(tweet);
 	    }
     });
 }

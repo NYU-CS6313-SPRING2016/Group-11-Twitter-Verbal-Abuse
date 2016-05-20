@@ -3,7 +3,7 @@
 var request = require('request');
 var xmlToJson = require('xml2json');
 var config = require('../config');
-var keys = [config.watson.apikey1, config.watson.apikey2, config.watson.apikey3];
+var keys = [config.watson.apikey1, config.watson.apikey2, config.watson.apikey3, config.watson.apikey4, config.watson.apikey5, config.watson.apikey6];
 var currIdx=0;
 
 function rotate()
@@ -15,28 +15,31 @@ function rotate()
 }
 
 module.exports.getEmotions = function(queryString,myCallback){
-	//console.log(queryString+'\n');
+	//myCallback(undefined);//addedsince api reaches limit, TODO:// comment during demo
+	//return;
 	var options = {
-	    url: config.watson.url, //URL to hit
-	    qs: {apikey: keys[currIdx], text: queryString}, //Query string data
-	    method: 'GET', //Specify the method
-	    headers: { //We can define headers too
+	    url: config.watson.url,
+	    qs: {apikey: keys[currIdx], text: queryString},
+	    method: 'GET',
+	    headers: { 
 	        'Content-Type': 'application/json'
 	    }
 	};
-	//options.qs.text = myData;
-	//return;
-	var JsonConverter;
+	var emotionObj;
 	request(options , function(error, response, body){
 	    if(error) {
 	        console.log(error);
+	        myCallback(undefined);
 	    } else {
-	    	JsonConverter = xmlToJson.toJson(body);
-			JsonConverter = JSON.parse(JsonConverter);
-			if(JsonConverter["statusInfo"] ==undefined)
-				myCallback(JsonConverter.results.docEmotions);
+	    	emotionObj = xmlToJson.toJson(body);
+			emotionObj = JSON.parse(emotionObj); 
+			if(emotionObj["results"]["statusInfo"] ==undefined)
+				myCallback(emotionObj.results.docEmotions);
 			else
+			{
 				rotate();//It means something is wrong
+				myCallback(undefined);
+			}
 
 	    }
 	});

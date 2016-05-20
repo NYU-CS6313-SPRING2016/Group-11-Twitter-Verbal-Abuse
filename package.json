@@ -9,20 +9,25 @@
     "monitor": "nodemon server.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.3.13",
+    "body-parser": "^1.15.0",
+    "countryjs": "1.0.0",
+    "elasticsearch": "11.0.0",
     "express": "~4.9.7",
     "express-handlebars": "~1.1.0",
+    "fs": "^0.0.2",
+    "hashtable": "2.0.1",
     "mongodb": "^2.1.15",
     "mongoose": "^4.2.6",
+    "natural": "^0.4.0",
     "node-jsx": "~0.12.4",
     "react": "~0.13.3",
+    "request": "2.72.0",
     "socket.io": "^1.1.0",
+    "sort-by": "1.1.1",
     "twitter": "^1.2.0",
-    "elasticsearch": "11.0.0",
-    "body-parser": "^1.15.0",
     "xml2json": "^0.9.0",
-    "fs": "^0.0.2",
-    "natural": "^0.4.0",
-    "request": "2.72.0"
+    "aws-sdk": "2.3.13"
   },
   "devDependencies": {
     "browserify": "~6.0.3",
