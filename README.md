@@ -2,7 +2,7 @@
 
 ==========================================
 
-![alt text](https://raw.githubusercontent.com/NYU-CS6313-SPRING2016/Group-11-Twitter-Verbal-Abuse/master/screenshot.png "Screenshot")
+![alt text](https://raw.githubusercontent.com/NYU-CS6313-SPRING2016/Group-11-Twitter-Verbal-Abuse/master/screenshotapp.png "Screenshot")
 
 **Authors**: Sachin Verma ([Sachinve](https://github.com/Sachinve)) Rahul Ramesh ([rahulkalpsts107](https://github.com/rahulkalpsts107)), Harshit Pareek ([hars1014](https://github.com/hars1014))
 
